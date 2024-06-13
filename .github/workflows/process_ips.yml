@@ -22,7 +22,7 @@ jobs:
           mkdir -p output
           touch output/ip.txt
           for file in txt_files/*.txt; do
-            port=$(basename "$file" | sed -E 's/.*-(.*)-.*/\1/')
+            port=$(basename "$file" | cut -d'-' -f3 | cut -d'.' -f1)
             if [ "$port" -eq 443 ]; then
               while IFS= read -r ip; do
                 echo "$ip:$port" >> output/ip.txt
