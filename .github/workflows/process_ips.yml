@@ -26,6 +26,7 @@ jobs:
             echo "$ip:$port" >> processed/ip.txt
           done < "$file"
         done
+        cat processed/ip.txt
 
     - name: Commit and push changes
       env:
