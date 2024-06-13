@@ -1,0 +1,36 @@
+name: Process IPs
+
+on:
+  workflow_dispatch:
+
+jobs:
+  process-ips:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Download txt.zip
+      run: curl -L -o txt.zip https://zip.baipiao.eu.org/txt.zip
+
+    - name: Unzip txt.zip
+      run: unzip txt.zip -d txt_files
+
+    - name: Process IP files
+      run: |
+        mkdir -p processed
+        for file in txt_files/*.txt; do
+          port=$(basename "$file" | cut -d'-' -f3 | cut -d'.' -f1)
+          while IFS= read -r ip; do
+            echo "$ip:$port" >> processed/ip.txt
+          done < "$file"
+        done
+
+    - name: Commit and push changes
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git add processed/ip.txt
+        git commit -m "Processed and merged IPs"
+        git push
