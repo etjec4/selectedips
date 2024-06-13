@@ -1,7 +1,8 @@
 name: Process IPs
 
 on:
-  workflow_dispatch:
+  schedule:
+    - cron: '0 2 * * *'  # 每天0点（UTC时间）运行一次
 
 jobs:
   process-ips:
