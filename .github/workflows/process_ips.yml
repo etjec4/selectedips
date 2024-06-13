@@ -32,8 +32,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.PAT }}
       run: |
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "etjec4"
+        git config --global user.email "144890343+etjec4@users.noreply.github.com"
         git add processed/ip.txt
         git commit -m "Processed and merged IPs"
         git push
