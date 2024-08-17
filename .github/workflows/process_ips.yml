@@ -21,7 +21,7 @@ jobs:
     - name: Process IP files
       run: |
           mkdir -p output
-          touch output/ip.txt
+          > output/ip.txt
           for file in txt_files/*.txt; do
             port=$(basename "$file" | cut -d'-' -f3 | cut -d'.' -f1)
             if [ "$port" -eq 443 ]; then
